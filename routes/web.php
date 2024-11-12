@@ -9,6 +9,8 @@ Route::redirect('/', 'posts');
  
 Route::resource('posts', PostController::class);
 
+Route::get('/search', [PostController::class, 'search'])->name('posts.search');
+
 Route::get('/{user}/posts', [DashboardController::class, 'posts'])->name('posts.user');
 
 Route::middleware('auth')->group(function () { 

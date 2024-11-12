@@ -1,5 +1,12 @@
 <x-layout>
     <h1 class="mb-3 fw-normal fs-2">Latest Posts...</h1>
+
+    {{-- Sesson Messages --}}
+    <div class="fs-5 fw-normal">
+        @if (session('not_found'))
+            <p class="text-success">{{ session('success') }}</p>
+        @endif
+    </div>
     
     @foreach ($posts as $post)
         <div class="mb-5">

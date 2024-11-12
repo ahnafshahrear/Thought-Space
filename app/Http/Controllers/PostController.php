@@ -14,7 +14,7 @@ class PostController extends Controller implements HasMiddleware
     public static function middleware(): array
     {
         return [
-            new Middleware('auth', except: ['index', 'show']),
+            new Middleware('auth', except: ['index', 'show', 'search']),
         ];
     }
     /**
@@ -104,5 +104,14 @@ class PostController extends Controller implements HasMiddleware
         $post->delete();
 
         return back()->with('delete', 'Your post was deleted!');
+    }
+    
+    // Search functionality
+    public function search(Request $request)
+    {
+        $search = $request->input('search');
+        $posts = Post::where('title', 'like', '%' . $search . '%')->latest()->paginate(3);
+
+        return view('posts.index', ['posts' => $posts]);
     }
 }
